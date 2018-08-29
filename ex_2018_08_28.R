@@ -39,9 +39,16 @@ if ((x %% 2 == 1) & (y %% 2 == 0)) {
 
 x = 5:7
 
+# Bad
+for(i in 1:length(x)) {
+  print(x[i])
+}
+
+# Good
 for(i in seq_along(x)) {
   print(x[i])
 }
+
 
 ### Exercise 2
 
