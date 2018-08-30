@@ -1,3 +1,11 @@
+## Modulus Operator
+
+2 %% 2 
+3 %% 2
+
+
+## Exercise 1
+
 x = 1
 y = 1
 
@@ -33,9 +41,7 @@ if ((x %% 2 == 1) & (y %% 2 == 0)) {
 
 
 
-
-
-### seq_along
+## seq_along example
 
 x = 5:7
 
@@ -79,6 +85,3 @@ x[!x %in% primes]
 
 
 
-### Modulus Operator
-2 %% 2 
-3 %% 2
