@@ -81,3 +81,12 @@ f = function(x = y+1) {
 f()
 
 
+### backtick functions
+
+1+1
+
+`+`(1,1)
+
+`|`(TRUE, FALSE)
+
+
