@@ -7,7 +7,7 @@ base_url = "https://www.rottentomatoes.com/"
 page = read_html(base_url)
 
 
-data_frame(
+d = data_frame(
   name   = page %>% html_nodes("#Top-Box-Office .middle_col a") %>% html_text(),
   url    = page %>% html_nodes("#Top-Box-Office .middle_col a") %>% html_attr("href") %>% paste0(base_url, .),
   gross  = page %>% html_nodes("#Top-Box-Office .right a") %>% html_text() %>% str_replace_all("^\\$|M$","") %>% as.numeric(),
@@ -19,3 +19,21 @@ data_frame(
     str_trim() %>% 
     str_replace("_", " ")
 )
+
+
+purrr::map_dfr(
+  d$url,
+  function(url) {
+    page = read_html(url)
+    
+    data_frame(
+      url         = url,
+      aud_score   = page %>% html_nodes(".meter-value .superPageFontColor") %>% html_text() %>% str_replace("%$", "") %>% as.numeric(),
+      mpaa_rating = page %>% html_nodes(".clearfix:nth-child(1) .meta-value") %>% html_text() %>% str_replace("\\(.*\\)", "") %>% str_trim()
+    )
+  }
+) %>%
+  full_join(d, .)
+
+
+
