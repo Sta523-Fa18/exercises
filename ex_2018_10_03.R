@@ -20,9 +20,12 @@ d = data_frame(
     str_replace("_", " ")
 )
 
+urls = d$url
+urls[5:9] = "http://google.com"
+
 
 purrr::map_dfr(
-  d$url,
+  urls,
   function(url) {
     page = read_html(url)
     
