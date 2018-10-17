@@ -17,9 +17,10 @@ download.file(url, basename(url))
 
 ## Dennys
 
-url = "https://www2.stat.duke.edu/~cr173/dennys/locations.dennys.com/index.html"
+url = "http://www2.stat.duke.edu/~cr173/dennys/locations.dennys.com/"
+base_url = "http://www2.stat.duke.edu/~cr173/dennys/locations.dennys.com/"
 
-url = "https://locations.dennys.com/NC/WILMINGTON/249257"
+#url = "https://locations.dennys.com/NC/WILMINGTON/249257"
 
 get_restaurant = function(url) {
   page = read_html(url)
@@ -63,19 +64,19 @@ get_city_links = function(url) {
 
 # Get state links
 
-base_url = "https://locations.dennys.com/"
+
 state_urls = get_list_links(base_url)
 
 
-city_links = map(state_urls$groups[1:5], get_list_links)
+city_links = map(state_urls$groups, get_list_links)
 
 
 cities = map(city_links, "groups") %>% flatten_chr()
 
 
 restaurants = c(map(city_links, "restaurants") %>% flatten_chr(), 
-                map(cities[1:5], get_city_links) %>% flatten_chr())
+                map(cities, get_city_links) %>% flatten_chr())
 
 
-df = map_dfr(restaurants[1:10], get_restaurant)
+df = map_dfr(restaurants, get_restaurant)
 df
