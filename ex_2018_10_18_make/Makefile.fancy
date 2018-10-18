@@ -1,0 +1,13 @@
+all: paper.html
+
+paper.html: paper.Rmd Fig1/fig.png Fig2/fig.png
+	Rscript -e "library(rmarkdown);render('paper.Rmd')"
+
+Fig%/fig.png: Fig%/fig.R
+	cd $(<D);Rscript $(<F)
+
+clean:
+	rm -f paper.html
+	rm -f Fig*/*.png
+
+.PHONY: all clean
