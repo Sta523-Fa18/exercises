@@ -90,8 +90,10 @@ shinyApp(
       #  tidyr::gather(distribution, density, -p) %>%
       #  mutate(distribution = forcats::as_factor(distribution))
       
+      p = posterior()
+      
       abc_posterior = data_frame(
-        posterior = posterior()
+        posterior = p
       )
       
       #g = ggplot(d, aes(x = p, color = distribution, fill=distribution)) +
